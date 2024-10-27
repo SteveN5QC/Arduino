@@ -1,4 +1,5 @@
-const int ledPin = 9;       // LED connected to digital pin 9
+//const int ledPin = 9;       // Esampla WAS:  LED connected to digital pin 9
+const int ledPin = 12;       // My As Built LED connected to digital pin 12
 const int switchPin = 2;    // DIP switch connected to digital pin 2
 int switchState = 0;        // Variable for reading the switch status
 
