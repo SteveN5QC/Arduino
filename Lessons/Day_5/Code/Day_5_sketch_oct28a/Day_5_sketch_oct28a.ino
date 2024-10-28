@@ -25,7 +25,8 @@ void setup() {
 
 void loop() {
     // Read the DIP switch state and create a binary number
-    switchState = (digitalRead(2) << 2) | (digitalRead(3) << 1) | digitalRead(4);
+    //  Flip left to right WAS:  switchState = (digitalRead(2) << 2) | (digitalRead(3) << 1) | digitalRead(4);
+    switchState = (digitalRead(4) << 2) | (digitalRead(3) << 1) | digitalRead(2);
 
     // Turn LEDs on or off based on the switchState value
     digitalWrite(10, switchState & 0b001 ? HIGH : LOW);   // LED on pin 10 -- Rewritten to use pins 10, 11, 12 This line WAS LED on pin 9
