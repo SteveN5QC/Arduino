@@ -63,6 +63,6 @@ void displayBinaryCounter() {
     digitalWrite(11, counter & 0b010 ? HIGH : LOW);  // LED on pin 11
     digitalWrite(12, counter & 0b100 ? HIGH : LOW);  // LED on pin 12
 
-    delay(1000); // Hold each counter state for 1 second
+    delay(3000); // Hold each counter state for 1 second -->  Changed to 3 seconds
     counter = (counter + 1) % 8;  // Loop back to 0 after reaching 7
 }
