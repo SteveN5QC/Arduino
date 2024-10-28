@@ -40,6 +40,7 @@ void setup() {
 // After setup() is executed once the loop() function is called.  Every time it completes it
 // is immediately called again, over and over again.
 void loop() {
+
 /*
   // First version of our loop.  It works, but could be shorter, more efficient and
   // more understandable.  Commented out but left in to show how we can incrementally
@@ -56,9 +57,9 @@ void loop() {
   if (switch_setting == LOW) {
     digitalWrite(CABIN_LIGHTS_PIN, LOW);  // if switch is OFF then turn off lander's light
   }
-*/
 
-/*
+
+
   // Second version of our loop.  Better.  Define the variable and set it in the same statement
   // and then use the else statement to show that we should always execute ONE of our two
   // actions.
@@ -78,9 +79,12 @@ void loop() {
 
   // Each time loop() begins digitalRead() reads the input pin attached to the switch and
   // compares the value read to HIGH (switch is ON)
+  
   if (digitalRead(CABIN_LIGHTS_SWITCH_PIN) == HIGH) {
     digitalWrite(CABIN_LIGHTS_PIN, HIGH);  // Switch is ON, turn on our lander's light
   } else {
     digitalWrite(CABIN_LIGHTS_PIN, LOW);  // Switch is OFF, turn off lander's light
   }
+  
+
 }
