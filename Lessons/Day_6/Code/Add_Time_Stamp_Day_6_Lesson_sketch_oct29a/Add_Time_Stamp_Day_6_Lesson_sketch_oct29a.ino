@@ -1,6 +1,7 @@
 /*
  * 30 Days - Lost in Space
  * Day 6 - Time to Fix the Battery
+ * ADDING a Time Stapm
  *
  * Learn more at https://learn.inventr.io/adventure
  *
@@ -93,64 +94,9 @@ void loop() {
    * prints the value and THEN adds a "newline", so that any following messages will appear
    * on the following line.
    */
-  
-  // Print timestamp before the original data
-  Serial.print("Time: ");
-  Serial.print(millis()); // Prints milliseconds since program started
-  Serial.print(" ms | LED is blinking");
-  
-  
-  
-  
-  Serial.print("Light value: ");  // Display label string to serial monitor
-  Serial.print(light_value);      // display the value read from our photoresistor
 
-  /*
-   * The flash rate varies based on the relative brightness received by the photoresistor.
-   * However, your brightness levels could be very different if you are in a dark room from
-   * running this in a bright sunny room.  Because of this we will save the darkest value
-   * and the brightest value seen.
-   *
-   * These values would normally be lost when each run of our loop() ends, but by adding
-   * the "static" declaration we indicate that these local variables should maintain their
-   * values between loop() runs.
-   *
-   * The FIRST time these variables are used they will get initialized with the first light_value
-   * but that initialization is only done the first time so they will retain any changes
-   * between the loop() runs.
-   */
-  static unsigned int darkest_light = light_value;    // this is the lowest value returned by the photoresistor
-  static unsigned int brightest_light = light_value;  // this is the highest value returned by the photoresistor
 
-  /*
-   * Now that we have a light value let's update our darkest and brightest values
-   * if the current value is darker (less than) our previous darkest or brighter
-   * (greater than) our previous brightest value.
-   */
-  if (light_value < darkest_light) {  // If value is LESS THAN ('<') the darkest...
-    darkest_light = light_value;      // ...then save current value as our new darkest value
-  }
-  if (light_value > brightest_light) {  // If value is GREATER THAN ('>') the brightest...
-    brightest_light = light_value;      // ...then save current value as our new brightest value
-  }
 
-  /*
-   * Now we have an interesting problem.  As our voltage reading goes up, we want the LED to
-   * blink faster (and thus with a smaller delay).  In addition, we need to adjust the blink
-   * rate in a noticeable way.  So, we have one range of numbers (darkest to brightest values)
-   * from our light sensor that we wish to convert to a different range that goes from MAX_DELAY
-   * down to MIN_DELAY.
-   *
-   * The Arduino language provides a neat function named map() that was created just for this
-   * situation.  It takes a value from one range and *maps* it into a desired range.  It properly
-   * handles the situation where the second range goes DOWN when the first range goes UP.
-   *
-   * We introduce it's used here to map our light_value (which goes from darkest_light to
-   * brightest_light) and return a value from MAX_DELAY *down* to MIN_DELAY.  Perfect!
-   */
-  unsigned int delay_value = map(light_value, darkest_light, brightest_light, MAX_DELAY, MIN_DELAY);
-  Serial.print(", Delay value: ");  // display label after light_value
-  Serial.println(delay_value);      // display delay_value returned by map() function with newline
 
   // now blink our built in LED using our delay_value.
   digitalWrite(LED_BUILTIN, HIGH);  // Turn on LED
