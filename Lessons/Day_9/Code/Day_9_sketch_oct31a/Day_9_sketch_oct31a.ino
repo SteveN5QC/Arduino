@@ -94,7 +94,7 @@ void loop() {
   if (percentage >= 50.0) {     // battery level is OK, display green
     displayColor(0, 128, 0);  // display green
   } else if (percentage >= 25.0 && percentage < 50.0) {
-    displayColor(128, 80, 0);  // display yellow-ish/amber for early warning
+    displayColor(192, 40, 0);  // display yellow-ish/amber for early warning -- Revised yellow hue numbers
   } else {                     // Level must be less than 25%, display "pulsating" red
     // To pulsate the red light we briefly turn the LED off and then display red, giving it
     // a pulsating effect.

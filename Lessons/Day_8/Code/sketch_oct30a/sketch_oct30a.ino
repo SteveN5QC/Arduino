@@ -55,7 +55,7 @@ const byte BRIGHT = BRIGHTER + 64;  // Selected color is 3/4 intensity
 const byte BRIGHTEST = 255;         // Selected color is maximum intensity (255)
 
 // We can change this constant here, in one place, to change how long each color is displayed.
-const unsigned int COLOR_DELAY = 500;  // show each color for 500 milliseconds
+const unsigned int COLOR_DELAY = 2000;  // show each color for 500 milliseconds
 
 void setup() {
   // Set each of our PWM pins as OUTPUT pins
