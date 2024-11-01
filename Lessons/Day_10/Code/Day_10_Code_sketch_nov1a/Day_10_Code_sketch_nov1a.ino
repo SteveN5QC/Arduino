@@ -53,11 +53,11 @@ void runSimulation() {
     while (stepsForward < totalStepsForward) {
         float move = random(0, 100) / 100.0;
 
-        if (move < 0.4) {
+        if (move < 0.75) {
             stepsForward++; // Move forward
-        } else if (move < 0.65) {
-            position--; // Move left
         } else if (move < 0.9) {
+            position--; // Move left
+        } else if (move < 0.95) {
             position++; // Move right
         } else {
             stepsForward--; // Move backward
@@ -110,16 +110,16 @@ void signalMorse(String morse) {
         for (int j = 0; j < morse.length(); j++) {
             if (morse[j] == '.') {
                 setColor(bluePin);
-                delay(120); // Short blink
+                delay(12); // Short blink
             } else if (morse[j] == '-') {
                 setColor(bluePin);
-                delay(360); // Long blink
+                delay(36); // Long blink
             } else {
                 setColor(0); // Turn off LED for spaces
             }
-            delay(120); // Delay between signals
+            delay(12); // Delay between signals
         }
-        delay(300); // Pause between repeats
+        delay(30); // Pause between repeats
     }
     setColor(0); // Turn off LED
 }
