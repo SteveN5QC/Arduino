@@ -1,4 +1,18 @@
-// First Working Version
+/*
+ * 
+ *  First Working Version
+ *
+ *  Modified Versiob
+ *
+ *  Explanation of Key Updates
+
+    # as a Special Character:
+        In getPINInput(), # is used to indicate the end of the PIN entry and is not included in pinBuffer. When the user presses #, it checks if the PIN length is within the allowed range (4-8 characters) and finalizes the input.
+
+    * to Trigger PIN Change:
+        In loop(), pressing * prompts the user to enter the current PIN to gain access to change the PIN. This special character is ignored in the actual PIN entry.
+ *
+ */
 
 #include "Arduino.h"
 #include <Keypad.h>
@@ -41,24 +55,37 @@ void setup() {
 }
 
 void loop() {
-  if (attemptCount >= maxAttempts) {
-    Serial.println("Too many failed attempts. Access locked.");
-    while (true);
-  }
+  char button_character = heroKeypad.getKey();
 
-  Serial.println("Enter PIN:");
-  if (validatePIN()) {
-    Serial.println("Access Granted!");
-    giveSuccessFeedback();
-    attemptCount = 0;
-  } else {
-    attemptCount++;
-    Serial.print("Incorrect PIN. Attempts remaining: ");
-    Serial.println(maxAttempts - attemptCount);
-    giveErrorFeedback();
+  if (button_character == '*') {          // Trigger new PIN setup
+    giveInputFeedback();
+    Serial.println("Access current PIN to set new PIN:");
+    if (validatePIN()) {
+      setupNewPIN();
+    } else {
+      Serial.println("Access Denied. Incorrect PIN.");
+    }
+  } else if (button_character == '#') {   // Trigger PIN validation for access
+    giveInputFeedback();
+    if (validatePIN()) {
+      Serial.println("Access Granted!");
+      giveSuccessFeedback();
+      attemptCount = 0;
+    } else {
+      attemptCount++;
+      Serial.print("Incorrect PIN. Attempts remaining: ");
+      Serial.println(maxAttempts - attemptCount);
+      giveErrorFeedback();
+
+      if (attemptCount >= maxAttempts) {
+        Serial.println("Too many failed attempts. Access locked.");
+        while (true);  // Lock system after too many attempts
+      }
+    }
   }
 }
 
+// Set up a new PIN with verification
 void setupNewPIN() {
   char tempPIN[maxPinLength + 1];
 
@@ -84,7 +111,7 @@ bool getPINInput(char* pinBuffer) {
   while (true) {
     char key = heroKeypad.getKey();
     if (key) {
-      if (key == '#') {
+      if (key == '#') {  // End of PIN entry
         pinBuffer[charIndex] = '\0';
         if (charIndex >= minPinLength && charIndex <= maxPinLength) {
           return true;
@@ -93,7 +120,9 @@ bool getPINInput(char* pinBuffer) {
           return false;
         }
       }
-      if (charIndex < maxPinLength) {
+
+      // Add character if within limits and ignore '*'
+      if (charIndex < maxPinLength && key != '*') {
         pinBuffer[charIndex] = key;
         Serial.print("*");
         charIndex++;
@@ -103,6 +132,7 @@ bool getPINInput(char* pinBuffer) {
   }
 }
 
+// Validate entered PIN against currentPIN
 bool validatePIN() {
   char enteredPIN[maxPinLength + 1];
   if (getPINInput(enteredPIN)) {
