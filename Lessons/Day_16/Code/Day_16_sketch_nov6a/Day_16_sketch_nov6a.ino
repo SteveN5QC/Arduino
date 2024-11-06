@@ -144,7 +144,7 @@ void loop() {
   // Show counter including negative sign for negative numbers
   // NOTE: negative numbers cannot be less than -999 since the negative sign
   //       uses the left most digit of the display.
-  for (int i = -100; i <= 100; i++) {
+  for (int i = -999; i <= 9999; i++) {
     lander_display.showNumberDec(i);
     delay(50);
   }
