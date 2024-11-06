@@ -1,0 +1,48 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.11.06 10:17:09 =~=~=~=~=~=~=~=~=~=~=~=
+Set a new PIN (4-8 characters). End with #:
+Enter new PIN:
+Set a new PIN (4-8 characters). End with #:
+Enter new PIN:
+****Re-enter new PIN for verification:
+****New PIN set successfully!
+System is locked. Enter PIN to unlock:
+****System Unlocked! Options: '#' to lock, '*' to change PIN, any other key to work.
+Working... You pressed: 9
+Working... You pressed: 8
+Working... You pressed: 5
+Working... You pressed: 2
+Working... You pressed: 1
+Working... You pressed: 2
+Working... You pressed: 3
+Working... You pressed: A
+Working... You pressed: 4
+Working... You pressed: 5
+Working... You pressed: 6
+Working... You pressed: B
+Working... You pressed: 7
+Working... You pressed: 8
+Working... You pressed: 9
+Working... You pressed: C
+Working... You pressed: 0
+Working... You pressed: D
+System locked. Enter PIN to unlock.
+System is locked. Enter PIN to unlock:
+****System Unlocked! Options: '#' to lock, '*' to change PIN, any other key to work.
+Enter current PIN to change it:
+****PIN accepted. Setting up new PIN.
+Enter new PIN:
+*****Re-enter new PIN for verification:
+*****New PIN set successfully!
+New PIN set successfully. System unlocked.
+System locked. Enter PIN to unlock.
+System is locked. Enter PIN to unlock:
+*****System is locked. Enter PIN to unlock:
+*****System Unlocked! Options: '#' to lock, '*' to change PIN, any other key to work.
+Enter current PIN to change it:
+*****PIN accepted. Setting up new PIN.
+Enter new PIN:
+********Re-enter new PIN for verification:
+********New PIN set successfully!
+New PIN set successfully. System unlocked.
+System locked. Enter PIN to unlock.
+System is locked. Enter PIN to unlock:
