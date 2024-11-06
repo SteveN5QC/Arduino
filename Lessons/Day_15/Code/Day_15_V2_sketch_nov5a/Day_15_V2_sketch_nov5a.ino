@@ -12,6 +12,22 @@
     * to Trigger PIN Change:
         In loop(), pressing * prompts the user to enter the current PIN to gain access to change the PIN. This special character is ignored in the actual PIN entry.
  *
+ Explanation of Changes
+
+    Lock/Unlock Functionality:
+        The isLocked variable tracks the system’s state.
+        When locked, only a correct PIN can unlock it, and all other actions are disabled.
+        When unlocked, the user has three options:
+            #: Lock the system.
+            *: Change the PIN (requires re-entering the current PIN for security).
+            Any other character: Print the character to the Serial Monitor and simulate "working."
+
+    Color and Sound Feedback:
+        Locked: Red LED indicates the system is locked.
+        Unlocked: Green LED when the system is unlocked.
+        Input Feedback: Short beep and blue LED on valid inputs.
+        Success/Failure: Distinct success/failure feedback with LED colors and buzzer tones.
+ *
  */
 
 #include "Arduino.h"
@@ -22,14 +38,16 @@ const int minPinLength = 4;
 const int maxPinLength = 8;
 const int maxAttempts = 5;
 
-// Define what characters will be returned by each button
+char currentPIN[maxPinLength + 1];  // Stores the active PIN
+int attemptCount = 0;               // Track number of attempts
+bool isLocked = true;               // Track lock state
+
 const char BUTTONS[4][4] = {
   { '1', '2', '3', 'A' },
   { '4', '5', '6', 'B' },
   { '7', '8', '9', 'C' },
   { '*', '0', '#', 'D' }
 };
-
 const byte ROW_PINS[4] = { 5, 4, 3, 2 };
 const byte COL_PINS[4] = { 6, 7, 8, 13 };
 
@@ -40,78 +58,84 @@ const byte RED_PIN = 11;
 const byte GREEN_PIN = 10;
 const byte BLUE_PIN = 9;
 
-char currentPIN[maxPinLength + 1];
-int attemptCount = 0;
-
 void setup() {
   pinMode(RED_PIN, OUTPUT);
   pinMode(GREEN_PIN, OUTPUT);
   pinMode(BLUE_PIN, OUTPUT);
-  displayColor(128, 0, 0);
 
   Serial.begin(9600);
   Serial.println("Set a new PIN (4-8 characters). End with #:");
   setupNewPIN();
+  displayColor(128, 0, 0);  // Red LED indicates locked state
 }
 
 void loop() {
-  char button_character = heroKeypad.getKey();
-
-  if (button_character == '*') {          // Trigger new PIN setup
-    giveInputFeedback();
-    Serial.println("Access current PIN to set new PIN:");
+  if (isLocked) {
+    Serial.println("System is locked. Enter PIN to unlock:");
     if (validatePIN()) {
-      setupNewPIN();
-    } else {
-      Serial.println("Access Denied. Incorrect PIN.");
-    }
-  } else if (button_character == '#') {   // Trigger PIN validation for access
-    giveInputFeedback();
-    if (validatePIN()) {
-      Serial.println("Access Granted!");
-      giveSuccessFeedback();
-      attemptCount = 0;
+      isLocked = false;
+      Serial.println("System Unlocked! Options: '#' to lock, '*' to change PIN, any other key to work.");
+      displayColor(0, 128, 0);  // Green LED indicates unlocked state
     } else {
       attemptCount++;
-      Serial.print("Incorrect PIN. Attempts remaining: ");
-      Serial.println(maxAttempts - attemptCount);
-      giveErrorFeedback();
-
       if (attemptCount >= maxAttempts) {
-        Serial.println("Too many failed attempts. Access locked.");
-        while (true);  // Lock system after too many attempts
+        Serial.println("Too many failed attempts. Access locked permanently.");
+        while (true); // Lock indefinitely
+      }
+    }
+  } else {
+    char button_character = heroKeypad.getKey();
+    if (button_character) {
+      if (button_character == '#') {  // Lock the system
+        isLocked = true;
+        Serial.println("System locked. Enter PIN to unlock.");
+        displayColor(128, 0, 0);  // Red LED for locked state
+      } else if (button_character == '*') {  // Change PIN
+        Serial.println("Enter current PIN to change it:");
+        if (validatePIN()) {
+          Serial.println("PIN accepted. Setting up new PIN.");
+          displayColor(128, 80, 0);  // Yellow LED while changing PIN
+          setupNewPIN();
+          Serial.println("New PIN set successfully. System unlocked.");
+          displayColor(0, 128, 0);  // Green LED for unlocked state
+        } else {
+          Serial.println("Incorrect PIN. Returning to unlocked mode.");
+          displayColor(0, 128, 0);  // Keep green LED for unlocked state
+        }
+      } else {  // Any other character to "work"
+        Serial.print("Working... You pressed: ");
+        Serial.println(button_character);
+        giveInputFeedback();  // Short beep and blue LED for each work action
+        displayColor(0, 128, 0);  // Maintain green LED for unlocked state
       }
     }
   }
 }
 
-// Set up a new PIN with verification
 void setupNewPIN() {
   char tempPIN[maxPinLength + 1];
 
   Serial.println("Enter new PIN:");
   if (getPINInput(tempPIN)) {
     Serial.println("Re-enter new PIN for verification:");
-
     char verifyPIN[maxPinLength + 1];
     if (getPINInput(verifyPIN) && strcmp(tempPIN, verifyPIN) == 0) {
       strcpy(currentPIN, tempPIN);
       Serial.println("New PIN set successfully!");
       giveSuccessFeedback();
     } else {
-      Serial.println("PINs did not match. Restart setup.");
+      Serial.println("PINs did not match. Restarting setup.");
       setupNewPIN();
     }
   }
 }
 
-// Get PIN input with "#" to end entry
 bool getPINInput(char* pinBuffer) {
   int charIndex = 0;
   while (true) {
     char key = heroKeypad.getKey();
     if (key) {
-      if (key == '#') {  // End of PIN entry
+      if (key == '#') {
         pinBuffer[charIndex] = '\0';
         if (charIndex >= minPinLength && charIndex <= maxPinLength) {
           return true;
@@ -120,9 +144,7 @@ bool getPINInput(char* pinBuffer) {
           return false;
         }
       }
-
-      // Add character if within limits and ignore '*'
-      if (charIndex < maxPinLength && key != '*') {
+      if (charIndex < maxPinLength) {
         pinBuffer[charIndex] = key;
         Serial.print("*");
         charIndex++;
@@ -132,7 +154,6 @@ bool getPINInput(char* pinBuffer) {
   }
 }
 
-// Validate entered PIN against currentPIN
 bool validatePIN() {
   char enteredPIN[maxPinLength + 1];
   if (getPINInput(enteredPIN)) {
