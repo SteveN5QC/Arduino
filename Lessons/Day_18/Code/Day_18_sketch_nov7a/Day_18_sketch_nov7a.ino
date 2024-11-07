@@ -50,9 +50,9 @@
 
 // Controls will be locked unless the correct keys from Day 17 are added here.
 const unsigned int KEYS[] = {
-  0,  // Replace '0' with first key from Day 17 -- 23
-  0,  // Replace '0' with second key from Day 17 -- 353
-  0   // Replace '0' with third key from Day 17  1688
+  23,  // Replace '0' with first key from Day 17 -- 23
+  353,  // Replace '0' with second key from Day 17 -- 353
+  1688   // Replace '0' with third key from Day 17  1688
 };
 
 // The Rotary Encoder will be used to control our lander's depth underwater using
