@@ -1,0 +1,6 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.11.08 16:46:57 =~=~=~=~=~=~=~=~=~=~=~=
+No PIN found. Set a new PIN (4-8 chars, end with #):
+
+Enter new New program detected. Clearing EEPROM...
+No PIN found. Set a new PIN (4-8 chars, end with #):
+Enter new PIN:
