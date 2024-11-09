@@ -7,7 +7,9 @@ const int maxPinLength = 8;
 const int maxAttempts = 5;
 const int eepromStartAddress = 0; // EEPROM start address for PIN
 const int magicNumberAddress = 100; // EEPROM address for magic number
-const int magicNumber = 1234; // Unique number to flag valid EEPROM data
+const int magicNumberHighByte = 4;  // High byte for 1234 (1234 / 256)
+const int magicNumberLowByte = 210; // Low byte for 1234 (1234 % 256)
+
 
 // Keypad setup
 const char BUTTONS[4][4] = {
@@ -25,20 +27,30 @@ int attemptCount = 0;
 bool isLocked = true;  // System starts in locked state
 
 void setup() {
-  Serial.begin(9600);
+    Serial.begin(9600);
 
-  // Check if magic number is in EEPROM; if not, clear EEPROM and require new PIN
-  if (EEPROM.read(magicNumberAddress) != magicNumber) {
-    Serial.println("New program detected. Clearing EEPROM...");
-    clearEEPROM();
-    EEPROM.write(magicNumberAddress, magicNumber); // Store the magic number after clearing
-    Serial.println("No PIN found. Set a new PIN (4-8 chars, end with #):");
-    setupNewPIN();
-  } else {
-    Serial.println("Stored PIN loaded. Enter PIN to unlock.");
-    loadPINFromEEPROM();
-  }
+    int storedHighByte = EEPROM.read(magicNumberAddress);
+    int storedLowByte = EEPROM.read(magicNumberAddress + 1);
+
+    Serial.print("Read Magic Number High Byte: ");
+    Serial.println(storedHighByte);
+    Serial.print("Read Magic Number Low Byte: ");
+    Serial.println(storedLowByte);
+
+    if (storedHighByte != magicNumberHighByte || storedLowByte != magicNumberLowByte) {
+        Serial.println("New program detected. Clearing EEPROM...");
+        clearEEPROM();
+        EEPROM.write(magicNumberAddress, magicNumberHighByte);
+        EEPROM.write(magicNumberAddress + 1, magicNumberLowByte);
+        delay(10);
+        Serial.println("No PIN found. Set a new PIN (4-8 chars, end with #):");
+        setupNewPIN();
+    } else {
+        Serial.println("Stored PIN loaded. Enter PIN to unlock.");
+        loadPINFromEEPROM();
+    }
 }
+
 
 void loop() {
   if (isLocked) {
