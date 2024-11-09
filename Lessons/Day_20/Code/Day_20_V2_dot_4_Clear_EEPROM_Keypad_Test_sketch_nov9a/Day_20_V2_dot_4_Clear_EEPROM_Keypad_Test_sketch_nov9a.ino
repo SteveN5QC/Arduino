@@ -6,10 +6,9 @@
 const int minPinLength = 4;
 const int maxPinLength = 8;
 const int maxAttempts = 5;
-const int eepromStartAddress = 0; // EEPROM start address for PIN
-const int magicNumberAddress = 100; // EEPROM address for magic number (2 bytes)
-const int versionByteAddress = 102; // EEPROM address for version byte
-const int expectedVersion = 2;      // Change this value with each upload -- Originally 1, then 5, then 2
+const int eepromStartAddress = 0;     // EEPROM start address for PIN
+const int versionByteAddress = 102;   // EEPROM address for version byte
+const int expectedVersion = 1;        // Update this value with each new code upload
 
 // Keypad setup
 const char BUTTONS[4][4] = {
@@ -24,13 +23,15 @@ Keypad heroKeypad = Keypad(makeKeymap(BUTTONS), ROW_PINS, COL_PINS, 4, 4);
 
 char currentPIN[maxPinLength + 1];  // Stores the active PIN
 int attemptCount = 0;
-bool isLocked = true;  // System starts in locked state
+bool isLocked = true;               // System starts in locked state
 
 void setup() {
     Serial.begin(9600);
 
     // Check if the version byte matches the expected version
     int storedVersion = EEPROM.read(versionByteAddress);
+    Serial.print("Stored Version: "); Serial.println(storedVersion);
+    Serial.print("Expected Version: "); Serial.println(expectedVersion);
 
     if (storedVersion != expectedVersion) {
         Serial.println("New program version detected. Clearing EEPROM...");
@@ -107,19 +108,25 @@ void savePINToEEPROM() {
     for (int i = 0; i < length; i++) {
         EEPROM.write(eepromStartAddress + 1 + i, currentPIN[i]);
         delay(10);
+        Serial.print("Saved character: "); Serial.println(currentPIN[i]); // Debug echo
     }
+    Serial.println("PIN saved to EEPROM.");
 }
 
 // Load the PIN from EEPROM
 bool loadPINFromEEPROM() {
     int length = EEPROM.read(eepromStartAddress);
+    Serial.print("Loaded PIN length: "); Serial.println(length);
     if (length < minPinLength || length > maxPinLength) {
+        Serial.println("Invalid PIN length. No PIN loaded.");
         return false;
     }
     for (int i = 0; i < length; i++) {
         currentPIN[i] = EEPROM.read(eepromStartAddress + 1 + i);
+        Serial.print("Loaded character: "); Serial.println(currentPIN[i]); // Debug echo
     }
     currentPIN[length] = '\0';
+    Serial.print("Final loaded PIN: "); Serial.println(currentPIN);
     return true;
 }
 
@@ -128,6 +135,7 @@ void clearEEPROM() {
     for (int i = eepromStartAddress; i < EEPROM.length(); i++) {
         EEPROM.write(i, 0);  // Reset each byte in EEPROM to 0
     }
+    Serial.println("EEPROM cleared.");
 }
 
 // Get PIN input with "#" to end entry
@@ -136,6 +144,7 @@ bool getPINInput(char* pinBuffer) {
     while (true) {
         char key = heroKeypad.getKey();
         if (key) {
+            Serial.print("Entered character: "); Serial.println(key);  // Debug echo for each character
             if (key == '#') {
                 pinBuffer[charIndex] = '\0';
                 if (charIndex >= minPinLength && charIndex <= maxPinLength) {
@@ -166,3 +175,4 @@ bool validatePIN() {
     Serial.println("Incorrect PIN.");
     return false;
 }
+
