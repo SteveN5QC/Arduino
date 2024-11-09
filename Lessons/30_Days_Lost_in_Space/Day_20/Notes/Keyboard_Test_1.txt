@@ -1,0 +1,8 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.11.08 13:08:18 =~=~=~=~=~=~=~=~=~=~=~=
+Stored PIN loaded. Enter PIN to unlock.
+System is locked. EnterStored PIN loaded. Enter PIN to unlock.
+System is locked. Enter PIN to unlock:
+*Invalid PIN length. Try again.
+Incorrect PIN.
+System is locked. Enter PIN to unlock:
+********

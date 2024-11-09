@@ -1,0 +1,16 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.11.09 13:04:08 =~=~=~=~=~=~=~=~=~=~=~=
+Stored Version: 2
+Expected Version: 1
+New program version deteStored Version: 1
+Expected Version: 1
+Stored PIN loaded. Enter PIN to unlock.
+Loaded PIN length: 0
+Invalid PIN length. No PIN loaded.
+System is locked. Enter PIN to unlock:
+Entered character: 1
+*Entered character: 1
+*Entered character: 1
+*Entered character: 1
+*Entered character: #
+Incorrect PIN.
+System is locked. Enter PIN to unlock:

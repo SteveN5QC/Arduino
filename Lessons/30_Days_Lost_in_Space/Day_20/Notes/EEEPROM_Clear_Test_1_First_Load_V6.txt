@@ -1,0 +1,55 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.11.08 16:19:43 =~=~=~=~=~=~=~=~=~=~=~=
+New program detected. Clearing EEPROM...
+No PIN found. Set a neNew program detected. Clearing EEPROM...
+No PIN found. Set a new PIN (4-8 chars, end with #):
+Enter new PIN:
+****Re-enter new PIN to confirm:
+****New PIN set successfully!
+System is locked. Enter PIN to unlock:
+****Access Granted!
+System Unlocked! Options: '#' to lock, '*' to change PIN, other keys to work.
+Working... You pressed: 1
+Working... You pressed: 2
+Working... You pressed: 3
+Working... You pressed: 4
+Working... You pressed: 5
+Working... You pressed: 6
+Working... You pressed: 7
+Working... You pressed: 8
+Working... You pressed: 9
+Working... You pressed: 0
+Working... You pressed: A
+Working... You pressed: B
+Working... You pressed: C
+Working... You pressed: D
+System locked. Enter PIN to unlock.
+System is locked. Enter PIN to unlock:
+****Access Granted!
+System Unlocked! Options: '#' to lock, '*' to change PIN, other keys to work.
+Working... You pressed: 1
+Working... You pressed: 5
+Working... You pressed: 1
+Working... You pressed: 7
+Enter current PIN to change:
+****Access Granted!
+PIN accepted. Set a new PIN:
+Enter new PIN:
+****Re-enter new PIN to confirm:
+****New PIN set successfully!
+New PIN set. System unlocked.
+Working... You pressed: 1
+Working... You pressed: 2
+Working... You pressed: 3
+Working... You pressed: 4
+Working... You pressed: 5
+Working... You pressed: 6
+Working... You pressed: 7
+Working... You pressed: 8
+Working... You pressed: 9
+Working... You pressed: 0
+Working... You pressed: A
+Working... You pressed: B
+Working... You pressed: C
+Working... You pressed: D
+System locked. Enter PIN to unlock.
+System is locked. Enter PIN to unlock:
