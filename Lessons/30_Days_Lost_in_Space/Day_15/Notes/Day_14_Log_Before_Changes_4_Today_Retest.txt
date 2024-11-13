@@ -1,0 +1,19 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.11.05 16:13:45 =~=~=~=~=~=~=~=~=~=~=~=
+Press * to set new password or # to access the system.
+Press * to set new password or # to access the system.
+Enter PIN to continue.
+****
+Device Successfully Unlocked!
+Welcome, authorized user. Please Enter a new password: 
+****
+PIN Successfully Changed!
+Enter PIN to continue.
+****
+Device Successfully Unlocked!
+Welcome, authorized user. You may now begin using the system.
+Enter PIN to continue.
+
+WRONG PIN DIGIT: 8
+Access Denied.
+
+Press * to enter new PIN or # to access the system.

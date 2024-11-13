@@ -1,0 +1,11 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.11.05 17:12:24 =~=~=~=~=~=~=~=~=~=~=~=
+Set a new PIN (4-8 characters). End with #:
+Enter new PIN:
+Set a new PIN (4-8 characters). End with #:
+Enter new PIN:
+****Re-enter new PIN for verification:
+****New PIN set successfully!
+Access current PIN to set new PIN:
+****Enter new PIN:
+******Re-enter new PIN for verification:
+******New PIN set successfully!

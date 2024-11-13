@@ -1,0 +1,19 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2024.11.08 15:06:20 =~=~=~=~=~=~=~=~=~=~=~=
+New program detected. Clearing EEPROM...
+No PIN found. Set a neNew program detected. Clearing EEPROM...
+No PIN found. Set a new PIN (4-8 chars, end with #):
+Enter new PIN:
+****Re-enter new PIN to confirm:
+****New PIN set successfully!
+System is locked. Enter PIN to unlock:
+****Access Granted!
+System Unlocked! Options: '#' to lock, '*' to change PIN, other keys to work.
+Working... You pressed: 1
+Working... You pressed: 1
+Working... You pressed: 1
+Working... You pressed: 3
+Working... You pressed: 1
+Working... You pressed: 1
+Working... You pressed: 4
+Working... You pressed: 4
+Working... You pressed: 6
