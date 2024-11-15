@@ -2,7 +2,7 @@ const int photoPin = A0;    // the pin where the photoresistor is connected
 const int ledPin = 13;      // the pin where the LED is connected
 
 int lightLevel = 0;         // variable to store the light level
-int threshold = 100;        // threshold for light change detection
+int threshold = 200;        // threshold for light change detection  WAS: 100 -->  Changed to 200 for use in bright room
 
 
 void setup() {
