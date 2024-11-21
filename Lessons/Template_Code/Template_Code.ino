@@ -42,3 +42,14 @@ void loop() {
   // put your main code here, to run repeatedly:
 
 }
+
+
+// ************************************************
+//                     Lesson Reference Code
+// ************************************************
+
+/*
+
+Paste Reference Code Here
+
+*/

@@ -1,5 +1,4 @@
 /*
- * WORK IN PROGRESS
  * 
  * Steve's Cogsworth City -- Day 7
  * General Comments and Logic Narrative
